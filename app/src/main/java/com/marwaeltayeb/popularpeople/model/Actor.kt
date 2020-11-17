@@ -1,6 +1,7 @@
 package com.marwaeltayeb.popularpeople.model
 
 import com.google.gson.annotations.SerializedName
+import com.marwaeltayeb.popularpeople.utils.Gender
 import java.io.Serializable
 
 class Actor (
@@ -12,7 +13,7 @@ class Actor (
     val department: String,
 
     @SerializedName("gender")
-    val gender: Int,
+    val gender: Gender,
 
     @SerializedName("id")
     val actorId: Int,
@@ -28,7 +29,7 @@ class Actor (
 
     @SerializedName("name")
     val actorName: String,
-)
+): Serializable
 
 class Work (
     @SerializedName("title")

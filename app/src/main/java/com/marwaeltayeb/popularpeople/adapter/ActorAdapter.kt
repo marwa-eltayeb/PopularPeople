@@ -16,7 +16,16 @@ import com.squareup.picasso.Picasso
 
 
 class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_CALL_BACK) {
-    
+
+    private lateinit var mItemClickListener:OnItemClickListener
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    interface OnItemClickListener {
+        fun onItemClick(actor: Actor?)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.actor_list_item, parent, false)
@@ -41,6 +50,16 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
             })
 
         holder.actorName.text = currentActor.actorName
+
+        if(::mItemClickListener.isInitialized){
+            holder.itemView.setOnClickListener {
+                mItemClickListener.onItemClick(currentActor)
+            }
+        }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        mItemClickListener = listener
     }
 
     class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

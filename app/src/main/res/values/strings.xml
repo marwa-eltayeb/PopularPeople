@@ -2,4 +2,9 @@
     <string name="app_name">Popular People</string>
     <string name="image_description">Actor Image</string>
     <string name="dummy_actor_name">Anya Taylor-Joy</string>
+    <string name="details">Details</string>
+    <string name="popularity">Popularity</string>
+    <string name="department">Department</string>
+    <string name="gender">Gender</string>
+    <string name="known_for">Known For: </string>
 </resources>
