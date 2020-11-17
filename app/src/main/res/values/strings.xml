@@ -8,4 +8,5 @@
     <string name="gender">Gender</string>
     <string name="known_for">Known For: </string>
     <string name="image_activity_label">Current Image</string>
+    <string name="save_image">Save Image</string>
 </resources>
