@@ -1,6 +1,7 @@
 package com.marwaeltayeb.popularpeople.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ActorApiResponse (
 
@@ -14,5 +15,5 @@ data class ActorApiResponse (
     val totalPages: Int,
 
     @SerializedName("results")
-    val actorsList: List<Acting>
-)
+    val actorsList: List<Actor>
+): Serializable

@@ -3,27 +3,27 @@ package com.marwaeltayeb.popularpeople.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.marwaeltayeb.popularpeople.model.Acting
+import com.marwaeltayeb.popularpeople.model.Actor
 
-class ActorDataSourceFactory: DataSource.Factory<Int, Acting>() {
+class ActorDataSourceFactory: DataSource.Factory<Int, Actor>() {
     
     // Creating the mutable live database
-    private val actingLiveDataSource = MutableLiveData<PageKeyedDataSource<Int, Acting>>()
+    private val actorLiveDataSource = MutableLiveData<PageKeyedDataSource<Int, Actor>>()
 
-    override fun create(): DataSource<Int, Acting> {
+    override fun create(): DataSource<Int, Actor> {
         // Getting our Data source object
-        val actingDataSource = ActorDataSource()
+        val actorDataSource = ActorDataSource()
 
         // Posting the Data source to get the values
-        actingLiveDataSource.postValue(actingDataSource)
+        actorLiveDataSource.postValue(actorDataSource)
 
         // Returning the Data source
-        return actingDataSource
+        return actorDataSource
     }
 
-    // Getter for Acting live DataSource
-    fun getActingLiveDataSource(): MutableLiveData<PageKeyedDataSource<Int, Acting>> {
-        return actingLiveDataSource
+    // Getter for Actor live DataSource
+    fun getActorsLiveDataSource(): MutableLiveData<PageKeyedDataSource<Int, Actor>> {
+        return actorLiveDataSource
     }
 }
 

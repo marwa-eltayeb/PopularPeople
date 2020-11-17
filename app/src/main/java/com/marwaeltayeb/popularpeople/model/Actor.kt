@@ -1,9 +1,9 @@
 package com.marwaeltayeb.popularpeople.model
 
-import android.R
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Acting (
+class Actor (
 
     @SerializedName("popularity")
     val popularity: String,
@@ -33,6 +33,6 @@ class Acting (
 class Work (
     @SerializedName("title")
     val movieTitle: String,
-)
+): Serializable
 
 

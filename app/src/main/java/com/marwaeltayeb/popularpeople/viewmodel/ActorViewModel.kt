@@ -6,24 +6,24 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.marwaeltayeb.popularpeople.utils.Const
-import com.marwaeltayeb.popularpeople.model.Acting
+import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.datasource.ActorDataSourceFactory
 
 
 class ActorViewModel : ViewModel() {
 
     // Create liveData for PagedList and PagedKeyedDataSource
-    var actingPagedList: LiveData<PagedList<Acting>>
-    private var liveDataSource: LiveData<PageKeyedDataSource<Int, Acting>>
+    var actorPagedList: LiveData<PagedList<Actor>>
+    private var liveDataSource: LiveData<PageKeyedDataSource<Int, Actor>>
 
     init {
         
         // Get our database source factory
-        val actingDataSourceFactory = ActorDataSourceFactory()
+        val actorDataSourceFactory = ActorDataSourceFactory()
 
 
         // Get the live database source from database source factory
-        liveDataSource = actingDataSourceFactory.getActingLiveDataSource()
+        liveDataSource = actorDataSourceFactory.getActorsLiveDataSource()
 
 
         // Get PagedList configuration
@@ -33,6 +33,6 @@ class ActorViewModel : ViewModel() {
 
 
         // Build the paged list
-        actingPagedList = LivePagedListBuilder(actingDataSourceFactory, pagedListConfig).build()
+        actorPagedList = LivePagedListBuilder(actorDataSourceFactory, pagedListConfig).build()
     }
 }

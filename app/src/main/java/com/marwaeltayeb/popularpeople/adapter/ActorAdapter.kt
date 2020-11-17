@@ -10,20 +10,20 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
-import com.marwaeltayeb.popularpeople.model.Acting
+import com.marwaeltayeb.popularpeople.model.Actor
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 
-class ActingAdapter : PagedListAdapter<Acting, ActingAdapter.ActingViewHolder>(DIFF_CALL_BACK) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActingViewHolder {
+class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_CALL_BACK) {
+    
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.actor_list_item, parent, false)
-        return ActingViewHolder(view)
+        return ActorViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ActingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         val currentActor = getItem(position)
 
         val imageUrl = "https://image.tmdb.org/t/p/w500/" + currentActor!!.actorImage
@@ -43,7 +43,7 @@ class ActingAdapter : PagedListAdapter<Acting, ActingAdapter.ActingViewHolder>(D
         holder.actorName.text = currentActor.actorName
     }
 
-    class ActingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var actorImage: ImageView
         var actorName: TextView
 
@@ -55,13 +55,13 @@ class ActingAdapter : PagedListAdapter<Acting, ActingAdapter.ActingViewHolder>(D
     }
 }
 
-private val DIFF_CALL_BACK: DiffUtil.ItemCallback<Acting> =
-    object : DiffUtil.ItemCallback<Acting>() {
-        override fun areItemsTheSame(oldItem: Acting, newItem: Acting): Boolean {
+private val DIFF_CALL_BACK: DiffUtil.ItemCallback<Actor> =
+    object : DiffUtil.ItemCallback<Actor>() {
+        override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean {
             return oldItem.actorId == newItem.actorId
         }
 
-        override fun areContentsTheSame(oldItem: Acting, newItem: Acting): Boolean {
+        override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean {
             return oldItem.actorId == newItem.actorId
         }
     }

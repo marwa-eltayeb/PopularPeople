@@ -16,7 +16,7 @@ object  RetrofitClient {
             .build()
     }
 
-    fun getActingService(): ActorService {
+    fun getActorService(): ActorService {
         return retrofit.create(ActorService::class.java)
     }
 }
