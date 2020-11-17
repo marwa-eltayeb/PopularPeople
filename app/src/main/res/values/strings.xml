@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Popular People</string>
+    <string name="image_description">Actor Image</string>
+    <string name="dummy_actor_name">Anya Taylor-Joy</string>
 </resources>
