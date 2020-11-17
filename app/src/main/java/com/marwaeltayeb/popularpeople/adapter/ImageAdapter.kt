@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
+import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.squareup.picasso.Callback
@@ -16,6 +17,15 @@ import com.squareup.picasso.Picasso
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     private var images: List<Image> = ArrayList()
+
+    private lateinit var mItemClickListener:OnItemClickListener
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    interface OnItemClickListener {
+        fun onItemClick(image: Image?)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -39,6 +49,12 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
                     Log.d("image", "error")
                 }
             })
+
+        if(::mItemClickListener.isInitialized){
+            holder.itemView.setOnClickListener {
+                mItemClickListener.onItemClick(currentImage)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +64,10 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     fun setImages(images: List<Image>){
         this.images = images
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        mItemClickListener = listener
     }
 
     class ImageViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {

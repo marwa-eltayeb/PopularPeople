@@ -1,5 +1,6 @@
 package com.marwaeltayeb.popularpeople.view
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,9 @@ import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.adapter.ActorAdapter
 import com.marwaeltayeb.popularpeople.adapter.ImageAdapter
 import com.marwaeltayeb.popularpeople.model.Actor
+import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
+import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_IMAGE
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
 import com.marwaeltayeb.popularpeople.utils.Gender
 import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
@@ -22,7 +25,7 @@ import com.marwaeltayeb.popularpeople.viewmodel.ImageViewModel
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
 
     private lateinit var actorImage: ImageView
     private lateinit var actorName: TextView
@@ -96,6 +99,7 @@ class DetailsActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
 
         imageAdapter = ImageAdapter()
+        imageAdapter.setOnItemClickListener(this)
     }
 
     private fun loadImages() {
@@ -115,7 +119,9 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-
-
-
+    override fun onItemClick(image: Image?) {
+        intent = Intent(this, ImageActivity::class.java)
+        intent.putExtra(CURRENT_IMAGE, image)
+        startActivity(intent)
+    }
 }
