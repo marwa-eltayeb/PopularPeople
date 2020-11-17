@@ -8,5 +8,6 @@ class Const {
         const val FIRST_PAGE = 1
         const val PAGE_SIZE = 20
         const val CURRENT_ACTOR = "actor"
+        const val IMAGE_LINK = "https://image.tmdb.org/t/p/w500/"
     }
 }

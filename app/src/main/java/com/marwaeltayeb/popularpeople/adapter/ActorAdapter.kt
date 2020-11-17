@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.model.Actor
+import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -35,7 +36,7 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         val currentActor = getItem(position)
 
-        val imageUrl = "https://image.tmdb.org/t/p/w500/" + currentActor!!.actorImage
+        val imageUrl = IMAGE_LINK + currentActor!!.actorImage
 
         Picasso.get()
             .load(imageUrl)
