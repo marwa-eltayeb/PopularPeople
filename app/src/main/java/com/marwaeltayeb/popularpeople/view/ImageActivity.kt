@@ -18,6 +18,7 @@ import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.lang.Math.random
 
 class ImageActivity : AppCompatActivity() {
 
@@ -58,17 +59,17 @@ class ImageActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.saveImage -> {
-                downloadImage()
+                saveImage()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun downloadImage() {
+    private fun saveImage() {
         // Check if write external storage permission is granted
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            saveImage(imageUrl)
+            downloadImage(imageUrl)
         } else {
             // Request Writer external storage permission
             ActivityCompat.requestPermissions(
@@ -79,11 +80,11 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveImage(url: String) {
+    private fun downloadImage(url: String) {
         val request = DownloadManager.Request(Uri.parse(url))
-            .setTitle("Download Image")
-            .setDescription("Download Image from PopularPeople app")
-            .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "actor image.jpg")
+            .setTitle(getString(R.string.notification_title))
+            .setDescription(getString(R.string.notification_description))
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "image" + random() + ".jpg")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
         val manager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
@@ -96,7 +97,7 @@ class ImageActivity : AppCompatActivity() {
         if (requestCode == PERMISSION_EXTERNAL_STORAGE &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // Download actor image if permission is granted
-            saveImage(imageUrl)
+            downloadImage(imageUrl)
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }

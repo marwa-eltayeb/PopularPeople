@@ -113,9 +113,9 @@ class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
 
     private fun getGender(gender: String) {
         if(gender == Gender.MALE.name) {
-            actorGender.text = "Male"
+            actorGender.text = getString(R.string.male)
         }else{
-            actorGender.text = "Female"
+            actorGender.text = getString(R.string.female)
         }
     }
 

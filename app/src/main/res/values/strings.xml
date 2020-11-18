@@ -9,4 +9,8 @@
     <string name="known_for">Known For: </string>
     <string name="image_activity_label">Current Image</string>
     <string name="save_image">Save Image</string>
+    <string name="notification_title">Download Image</string>
+    <string name="notification_description">Download Image from PopularPeople app</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
 </resources>
