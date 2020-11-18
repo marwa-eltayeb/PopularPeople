@@ -6,71 +6,72 @@ import com.marwaeltayeb.popularpeople.utils.Const
 import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.model.ActorApiResponse
 import com.marwaeltayeb.popularpeople.network.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class ActorDataSource : PageKeyedDataSource<Int, Actor>() {
+class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<Int, Actor>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Actor>) {
-        RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
-            .enqueue(object : Callback<ActorApiResponse> {
-                override fun onFailure(call: Call<ActorApiResponse>, t: Throwable) {
-                    Log.d("onFailure", "Failed")
-                }
+        scope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
 
-                override fun onResponse(call: Call<ActorApiResponse>, response: Response<ActorApiResponse>) {
-                    Log.d("onResponse", "Succeeded")
-
-                    if (response.isSuccessful) {
-                        // Fetch database and pass the result null for the previous page
-                        callback.onResult(response.body()!!.actorsList, null, Const.FIRST_PAGE + 1)
-                    }
+                Log.d("onResponse", "Succeeded")
+                if (response.isSuccessful) {
+                    // Fetch database and pass the result null for the previous page
+                    callback.onResult(response.body()!!.actorsList, null, Const.FIRST_PAGE + 1)
                 }
-            })
+            } catch (e: Exception) {
+                // Show API error. This is the error raised by the client.
+                Log.d("onFailure", "Failed")
+            }
+        }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Actor>) {
+        scope.launch(Dispatchers.IO) {
+            try {
+                Log.d("onResponse", "Succeeded")
 
-        RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
-            .enqueue(object : Callback<ActorApiResponse> {
-                override fun onFailure(call: Call<ActorApiResponse>, t: Throwable) {
-                    Log.d("onFailure", "Failed")
+                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
+
+                val adjacentKey = if (params.key > 1) params.key - 1 else null
+
+                if (response.body() != null) {
+                    // Passing the loaded database and the previous page key
+                    callback.onResult(response.body()!!.actorsList, adjacentKey)
                 }
-
-                override fun onResponse(call: Call<ActorApiResponse>, response: Response<ActorApiResponse>) {
-                    Log.v("onResponse", "Succeeded")
-
-                    val adjacentKey = if (params.key > 1) params.key - 1 else null
-
-                    if (response.body() != null) {
-                        // Passing the loaded database and the previous page key
-                        callback.onResult(response.body()!!.actorsList, adjacentKey)
-                    }
-                }
-            })
+            } catch (e: Exception) {
+                // Show API error. This is the error raised by the client.
+                Log.d("onFailure", "Failed")
+            }
+        }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Actor>) {
 
-        RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
-            .enqueue(object : Callback<ActorApiResponse> {
-                override fun onFailure(call: Call<ActorApiResponse>, t: Throwable) {
-                    Log.d("onFailure", "Failed")
+        scope.launch(Dispatchers.IO) {
+            try {
+                Log.d("onResponse", "Succeeded")
+
+                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
+
+                if (response.body() != null) {
+                    // If the response has next page, increment the next page number
+                    val key = if (response.body()!!.actorsList.size == Const.PAGE_SIZE) params.key + 1 else null
+
+                    // Passing the loaded database and next page value
+                    callback.onResult(response.body()!!.actorsList, key)
                 }
-
-                override fun onResponse(call: Call<ActorApiResponse>, response: Response<ActorApiResponse>) {
-                    Log.v("onResponse", "Succeeded")
-
-                    if (response.body() != null) {
-                        // If the response has next page, increment the next page number
-                        val key = if (response.body()!!.actorsList.size == Const.PAGE_SIZE) params.key + 1 else null
-
-                        // Passing the loaded database and next page value
-                        callback.onResult(response.body()!!.actorsList, key)
-                    }
-                }
-            })
+            } catch (e: Exception) {
+                // Show API error. This is the error raised by the client.
+                Log.d("onFailure", "Failed")
+            }
+        }
     }
 }

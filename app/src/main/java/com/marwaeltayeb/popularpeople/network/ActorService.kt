@@ -11,11 +11,11 @@ import retrofit2.http.Query
 interface ActorService {
 
     @GET("popular")
-    fun getActorsList(
+    suspend fun getActorsList(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<ActorApiResponse>
+    ): Response<ActorApiResponse>
 
     @GET("{actorId}/images")
     suspend fun getActorImages(

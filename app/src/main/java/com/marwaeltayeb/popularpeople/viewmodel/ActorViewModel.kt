@@ -2,13 +2,13 @@ package com.marwaeltayeb.popularpeople.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.datasource.ActorDataSourceFactory
-
 
 class ActorViewModel : ViewModel() {
 
@@ -19,7 +19,7 @@ class ActorViewModel : ViewModel() {
     init {
         
         // Get our database source factory
-        val actorDataSourceFactory = ActorDataSourceFactory()
+        val actorDataSourceFactory = ActorDataSourceFactory(viewModelScope)
 
 
         // Get the live database source from database source factory
