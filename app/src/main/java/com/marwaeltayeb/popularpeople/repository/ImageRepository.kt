@@ -1,16 +1,14 @@
 package com.marwaeltayeb.popularpeople.repository
 
-import android.app.Application
 import android.util.Log
 
 import androidx.lifecycle.MutableLiveData
 import com.marwaeltayeb.popularpeople.model.Image
-import com.marwaeltayeb.popularpeople.model.ImageApiResponse
 import com.marwaeltayeb.popularpeople.network.RetrofitClient
 import com.marwaeltayeb.popularpeople.utils.Const
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ImageRepository {
@@ -18,22 +16,25 @@ class ImageRepository {
     private var imagesList: List<Image> = ArrayList()
     private val mutableLiveData: MutableLiveData<List<Image>> = MutableLiveData<List<Image>>()
 
-    fun getMutableLiveData(actorId: String): MutableLiveData<List<Image>> {
-        RetrofitClient.getActorService().getActorImages(actorId, Const.API_KEY)
-            .enqueue(object : Callback<ImageApiResponse> {
-                override fun onFailure(call: Call<ImageApiResponse>, t: Throwable) {
-                    Log.d("onFailure", "Failed")
+    fun getMutableLiveData(actorId: String, scope: CoroutineScope): MutableLiveData<List<Image>> {
+        scope.launch(Dispatchers.IO) {
+            try {
+
+                val response =
+                    RetrofitClient.getActorService().getActorImages(actorId, Const.API_KEY)
+                Log.d("onResponse", "Succeeded")
+
+                if (response.body() != null) {
+                    imagesList = response.body()!!.imagesList
+                    mutableLiveData.setValue(imagesList);
                 }
 
-                override fun onResponse(call: Call<ImageApiResponse>, response: Response<ImageApiResponse>) {
-                    Log.d("onResponse", "Succeeded")
 
-                    if (response.body() != null) {
-                        imagesList = response.body()!!.imagesList
-                        mutableLiveData.setValue(imagesList);
-                    }
-                }
-            })
+            } catch (e: Exception) {
+                // Show API error. This is the error raised by the client.
+                Log.d("onFailure", "Failed")
+            }
+        }
         return mutableLiveData
     }
 }
