@@ -38,7 +38,7 @@ class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<I
             try {
                 Log.d("onResponse", "Succeeded")
 
-                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
+                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
 
                 val adjacentKey = if (params.key > 1) params.key - 1 else null
 
@@ -59,7 +59,7 @@ class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<I
             try {
                 Log.d("onResponse", "Succeeded")
 
-                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
+                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
 
                 if (response.body() != null) {
                     // If the response has next page, increment the next page number
