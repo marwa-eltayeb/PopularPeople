@@ -26,7 +26,9 @@ class ImageRepository {
 
                 if (response.body() != null) {
                     imagesList = response.body()!!.imagesList
-                    mutableLiveData.setValue(imagesList);
+                    scope.launch(Dispatchers.Main){
+                        mutableLiveData.setValue(imagesList)
+                    }
                 }
 
 
