@@ -4,22 +4,18 @@ import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.marwaeltayeb.popularpeople.model.Actor
-import com.marwaeltayeb.popularpeople.model.ActorApiResponse
-import com.marwaeltayeb.popularpeople.network.RetrofitClient
+import com.marwaeltayeb.popularpeople.network.ActorService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<Int, Actor>() {
+class ActorDataSource(private val scope: CoroutineScope, private val actorService : ActorService) : PageKeyedDataSource<Int, Actor>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Actor>) {
         scope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
+                val response = actorService.getActorsList(Const.API_KEY, Const.LANGUAGE, Const.FIRST_PAGE)
 
                 Log.d("onResponse", "Succeeded")
                 if (response.isSuccessful) {
@@ -38,7 +34,7 @@ class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<I
             try {
                 Log.d("onResponse", "Succeeded")
 
-                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
+                val response = actorService.getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
 
                 val adjacentKey = if (params.key > 1) params.key - 1 else null
 
@@ -59,7 +55,7 @@ class ActorDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<I
             try {
                 Log.d("onResponse", "Succeeded")
 
-                val response = RetrofitClient.getActorService().getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
+                val response = actorService.getActorsList(Const.API_KEY, Const.LANGUAGE, params.key)
 
                 if (response.body() != null) {
                     // If the response has next page, increment the next page number

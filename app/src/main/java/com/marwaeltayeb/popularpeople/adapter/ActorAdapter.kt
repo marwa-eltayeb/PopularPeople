@@ -14,6 +14,7 @@ import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 
 class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_CALL_BACK) {
@@ -38,17 +39,7 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
 
         val imageUrl = IMAGE_LINK + currentActor!!.actorImage
 
-        Picasso.get()
-            .load(imageUrl)
-            .into(holder.actorImage, object : Callback {
-                override fun onSuccess() {
-                    Log.d("icon", "success")
-                }
-
-                override fun onError(e: Exception?) {
-                    Log.d("icon", "error")
-                }
-            })
+        Picasso.get().load(imageUrl).into(holder.actorImage)
 
         holder.actorName.text = currentActor.actorName
 

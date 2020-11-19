@@ -9,8 +9,10 @@ import androidx.paging.PagedList
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.datasource.ActorDataSourceFactory
+import com.marwaeltayeb.popularpeople.network.ActorService
+import javax.inject.Inject
 
-class ActorViewModel : ViewModel() {
+class ActorViewModel @Inject constructor(private val actorService : ActorService) : ViewModel() {
 
     // Create liveData for PagedList and PagedKeyedDataSource
     var actorPagedList: LiveData<PagedList<Actor>>
@@ -19,7 +21,7 @@ class ActorViewModel : ViewModel() {
     init {
         
         // Get our database source factory
-        val actorDataSourceFactory = ActorDataSourceFactory(viewModelScope)
+        val actorDataSourceFactory = ActorDataSourceFactory(viewModelScope, actorService)
 
 
         // Get the live database source from database source factory

@@ -1,6 +1,5 @@
 package com.marwaeltayeb.popularpeople.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
@@ -38,17 +38,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
         val imageUrl = Const.IMAGE_LINK + currentImage.image
 
-        Picasso.get()
-            .load(imageUrl)
-            .into(holder.actorImage, object : Callback {
-                override fun onSuccess() {
-                    Log.d("image", "success")
-                }
-
-                override fun onError(e: Exception?) {
-                    Log.d("image", "error")
-                }
-            })
+        Picasso.get().load(imageUrl).into(holder.actorImage)
 
         if(::mItemClickListener.isInitialized){
             holder.itemView.setOnClickListener {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.adapter.ActorAdapter
 import com.marwaeltayeb.popularpeople.adapter.ImageAdapter
+import com.marwaeltayeb.popularpeople.di.ViewModelProviderFactory
 import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
@@ -24,8 +25,13 @@ import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
 import com.marwaeltayeb.popularpeople.viewmodel.ImageViewModel
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
+class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListener {
+
+    @Inject
+    lateinit var providerFactory : ViewModelProviderFactory
 
     private lateinit var actorImage: ImageView
     private lateinit var actorName: TextView
@@ -36,7 +42,7 @@ class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
     private var actorId: Int = 0
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var imageAdapter: ImageAdapter
+    @Inject lateinit var imageAdapter: ImageAdapter
     private lateinit var imageViewModel: ImageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +87,7 @@ class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
             actorKnownFor.text = currentActor.actorsList.get(0).movieTitle
         }
 
-        imageViewModel = ViewModelProvider(this).get(ImageViewModel::class.java)
+        imageViewModel = ViewModelProvider(this, providerFactory).get(ImageViewModel::class.java)
 
         initViews()
 
@@ -98,7 +104,6 @@ class DetailsActivity : AppCompatActivity(), ImageAdapter.OnItemClickListener {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.setHasFixedSize(true)
 
-        imageAdapter = ImageAdapter()
         imageAdapter.setOnItemClickListener(this)
     }
 

@@ -3,30 +3,34 @@ package com.marwaeltayeb.popularpeople.view
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.adapter.ActorAdapter
+import com.marwaeltayeb.popularpeople.di.ViewModelProviderFactory
 import com.marwaeltayeb.popularpeople.model.Actor
-import com.marwaeltayeb.popularpeople.utils.Const
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
 import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() , ActorAdapter.OnItemClickListener{
+class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListener{
+
+    @Inject
+    lateinit var providerFactory : ViewModelProviderFactory
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var actorAdapter: ActorAdapter
+    @Inject lateinit var actorAdapter: ActorAdapter
     private lateinit var actorViewModel:ActorViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        actorViewModel = ViewModelProvider(this).get(ActorViewModel::class.java)
+        actorViewModel = ViewModelProvider(this, providerFactory).get(ActorViewModel::class.java)
 
         initViews()
         loadData()
@@ -41,7 +45,6 @@ class MainActivity : AppCompatActivity() , ActorAdapter.OnItemClickListener{
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.setHasFixedSize(true)
 
-        actorAdapter = ActorAdapter()
         actorAdapter.setOnItemClickListener(this)
     }
 

@@ -18,14 +18,15 @@ import com.marwaeltayeb.popularpeople.model.Image
 import com.marwaeltayeb.popularpeople.utils.Const
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import dagger.android.support.DaggerAppCompatActivity
 import java.lang.Math.random
+import javax.inject.Inject
 
-class ImageActivity : AppCompatActivity() {
+class ImageActivity : DaggerAppCompatActivity() {
 
     private lateinit var actorImage: ImageView
     private lateinit var imageUrl: String
     private val PERMISSION_EXTERNAL_STORAGE = 99
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,17 +38,7 @@ class ImageActivity : AppCompatActivity() {
 
         imageUrl = Const.IMAGE_LINK + currentImage!!.image
 
-        Picasso.get()
-            .load(imageUrl)
-            .into(actorImage, object : Callback {
-                override fun onSuccess() {
-                    Log.d("image", "success")
-                }
-
-                override fun onError(e: Exception?) {
-                    Log.d("image", "error")
-                }
-            })
+        Picasso.get().load(imageUrl).into(actorImage)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
