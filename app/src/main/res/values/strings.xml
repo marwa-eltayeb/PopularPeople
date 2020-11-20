@@ -13,4 +13,8 @@
     <string name="notification_description">Download Image from PopularPeople app</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
+    <string name="leftToRight_anim">left-to-right</string>
+    <string name="rightToLeft_anim">right-to-left</string>
+    <string name="fadeinToFdeout_anim">fadein-to-fadeout</string>
+    <string name="bottomToUp_anim">bottom-to-up</string>
 </resources>

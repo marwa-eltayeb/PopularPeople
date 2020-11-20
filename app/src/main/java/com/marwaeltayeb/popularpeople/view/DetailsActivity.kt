@@ -3,6 +3,7 @@ package com.marwaeltayeb.popularpeople.view
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,7 @@ import com.marwaeltayeb.popularpeople.utils.Gender
 import com.marwaeltayeb.popularpeople.viewmodel.ImageViewModel
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
+import maes.tech.intentanim.CustomIntent
 import javax.inject.Inject
 
 class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListener {
@@ -98,7 +100,7 @@ class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListe
         imageAdapter.notifyDataSetChanged()
     }
 
-    private fun getGender(gender : String) : String {
+    private fun getGender(gender: String) : String {
         return if(gender == Gender.MALE.name) {
             getString(R.string.male)
         } else {
@@ -110,5 +112,19 @@ class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListe
         intent = Intent(this, ImageActivity::class.java)
         intent.putExtra(CURRENT_IMAGE, image)
         startActivity(intent)
+        CustomIntent.customType(this, getString(R.string.fadeinToFdeout_anim))
+    }
+
+    override fun finish() {
+        super.finish()
+        CustomIntent.customType(this, getString(R.string.rightToLeft_anim))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

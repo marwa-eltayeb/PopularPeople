@@ -13,6 +13,7 @@ import com.marwaeltayeb.popularpeople.utils.ImageUtils.createImageLink
 import com.marwaeltayeb.popularpeople.utils.ImageUtils.downloadImage
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
+import maes.tech.intentanim.CustomIntent
 
 class ImageActivity : DaggerAppCompatActivity() {
 
@@ -44,6 +45,11 @@ class ImageActivity : DaggerAppCompatActivity() {
                 saveImage()
                 return true
             }
+
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -69,5 +75,10 @@ class ImageActivity : DaggerAppCompatActivity() {
             downloadImage(this, imageUrl)
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun finish() {
+        super.finish()
+        CustomIntent.customType(this, getString(R.string.bottomToUp_anim))
     }
 }

@@ -13,6 +13,7 @@ import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
 import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
 import dagger.android.support.DaggerAppCompatActivity
+import maes.tech.intentanim.CustomIntent
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListener{
@@ -59,5 +60,6 @@ class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListene
         intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra(CURRENT_ACTOR, actor)
         startActivity(intent)
+        CustomIntent.customType(this, getString(R.string.leftToRight_anim));
     }
 }
