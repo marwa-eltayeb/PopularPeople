@@ -1,6 +1,5 @@
 package com.marwaeltayeb.popularpeople.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.model.Actor
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
-import com.squareup.picasso.Callback
+import com.marwaeltayeb.popularpeople.utils.ImageUtils
+import com.marwaeltayeb.popularpeople.utils.ImageUtils.createImageLink
 import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
 
 class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_CALL_BACK) {
@@ -37,8 +36,7 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         val currentActor = getItem(position)
 
-        val imageUrl = IMAGE_LINK + currentActor!!.actorImage
-
+        val imageUrl = createImageLink(currentActor!!.actorImage)
         Picasso.get().load(imageUrl).into(holder.actorImage)
 
         holder.actorName.text = currentActor.actorName
@@ -57,7 +55,6 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
     class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var actorImage: ImageView
         var actorName: TextView
-
 
         init {
             actorImage = itemView.findViewById(R.id.actorImage)

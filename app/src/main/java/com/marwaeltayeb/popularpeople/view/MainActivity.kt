@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
@@ -15,7 +14,6 @@ import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
 import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
-
 
 class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListener{
 
@@ -33,7 +31,7 @@ class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListene
         actorViewModel = ViewModelProvider(this, providerFactory).get(ActorViewModel::class.java)
 
         initViews()
-        loadData()
+        loadListOfActors()
     }
 
     private fun initViews(){
@@ -48,7 +46,7 @@ class MainActivity : DaggerAppCompatActivity() , ActorAdapter.OnItemClickListene
         actorAdapter.setOnItemClickListener(this)
     }
 
-    private fun loadData() {
+    private fun loadListOfActors() {
         actorViewModel.actorPagedList.observe(this, {
             actorAdapter.submitList(it)
         })
