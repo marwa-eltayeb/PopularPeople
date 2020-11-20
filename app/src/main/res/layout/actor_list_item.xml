@@ -3,12 +3,12 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="122dp"
+    android:layout_width="@dimen/cardView_width"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="1dp"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
     card_view:cardUseCompatPadding="true"
-    card_view:elevation="1dp">
+    card_view:elevation="@dimen/elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/actorImage"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="@dimen/main_image_height"
             android:adjustViewBounds="true"
             android:contentDescription="@string/image_description"
             android:scaleType="fitXY"
@@ -28,13 +28,13 @@
         <TextView
             android:id="@+id/actorName"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/main_actorName_height"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:padding="3dp"
-            android:textColor="#fff"
-            android:textSize="14sp"
+            android:padding="@dimen/main_actorName_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_actorName_textSize"
             tools:text="@string/dummy_actor_name" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

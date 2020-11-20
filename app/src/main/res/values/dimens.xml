@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="cardView_width">122dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_elevation">1dp</dimen>
+    <dimen name="elevation">1dp</dimen>
+    <dimen name="main_image_height">175dp</dimen>
+    <dimen name="main_actorName_height">45dp</dimen>
+    <dimen name="main_actorName_padding">3dp</dimen>
+    <dimen name="main_actorName_textSize">14sp</dimen>
+    <dimen name="details_linearLayout_margin">10dp</dimen>
+    <dimen name="details_actorImage_width">130dp</dimen>
+    <dimen name="details_actorImage_height">200dp</dimen>
+    <dimen name="details_actorName_marginStart">40dp</dimen>
+    <dimen name="details_actorName_textSize">20sp</dimen>
+    <dimen name="details_textSize">25sp</dimen>
+    <dimen name="details_marginStart">10dp</dimen>
+    <dimen name="details_marginTop">10dp</dimen>
+    <dimen name="details_rc_marginTop">20dp</dimen>
+    <dimen name="details_rc_marginEnd">10dp</dimen>
+    <dimen name="details_rc_marginBottom">10dp</dimen>
+    <dimen name="image_actor_marginEnd">10dp</dimen>
+    <dimen name="image_actor_marginBottom">10dp</dimen>
+
+
 </resources>

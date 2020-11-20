@@ -14,14 +14,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/details_linearLayout_margin"
             android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/actorImage"
-                android:layout_width="130dp"
-                android:layout_height="200dp"
+                android:layout_width="@dimen/details_actorImage_width"
+                android:layout_height="@dimen/details_actorImage_height"
                 android:contentDescription="@string/image_description" />
 
             <TextView
@@ -29,17 +29,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="@dimen/details_actorName_marginStart"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/details_actorName_textSize"
                 tools:text="@string/dummy_actor_name" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/details_linearLayout_margin"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -50,7 +50,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="@string/popularity"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 android:textStyle="bold" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 tools:text="62.615" />
         </LinearLayout>
 
@@ -67,7 +67,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/details_linearLayout_margin"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -78,7 +78,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="@string/department"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 android:textStyle="bold" />
 
             <TextView
@@ -87,14 +87,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 tools:text="Acting" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/details_linearLayout_margin"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -105,7 +105,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="@string/gender"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 android:textStyle="bold" />
 
             <TextView
@@ -114,38 +114,39 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="@dimen/details_textSize"
                 tools:text="Female" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/details_marginStart"
             android:fontFamily="sans-serif-light"
             android:text="@string/known_for"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="@dimen/details_textSize"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/actorKnownFor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/details_marginStart"
+            android:layout_marginTop="@dimen/details_marginTop"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="@dimen/details_textSize"
             tools:text="Split" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcActorImageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginStart="@dimen/details_marginStart"
+            android:layout_marginTop="@dimen/details_rc_marginTop"
+            android:layout_marginEnd="@dimen/details_rc_marginEnd"
+            android:layout_marginBottom="@dimen/details_rc_marginBottom"
+            tools:listitem="@layout/image_list_item"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
