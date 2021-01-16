@@ -26,7 +26,7 @@ object ImageUtils {
         return "image" + Math.random() + ".jpg"
     }
 
-    fun createImageLink(actorImage : String) : String {
+    fun createImageLink(actorImage: String?) : String {
         return IMAGE_LINK + actorImage
     }
 }

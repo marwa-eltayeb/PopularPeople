@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.model.Actor
-import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
-import com.marwaeltayeb.popularpeople.utils.ImageUtils
 import com.marwaeltayeb.popularpeople.utils.ImageUtils.createImageLink
 import com.squareup.picasso.Picasso
 
@@ -36,10 +34,14 @@ class ActorAdapter : PagedListAdapter<Actor, ActorAdapter.ActorViewHolder>(DIFF_
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         val currentActor = getItem(position)
 
-        val imageUrl = createImageLink(currentActor!!.actorImage)
-        Picasso.get().load(imageUrl).into(holder.actorImage)
+        if(currentActor?.actorImage == null){
+            holder.actorImage.setImageResource(R.drawable.no_preview)
+        }else{
+            val imageUrl = createImageLink(currentActor.actorImage)
+            Picasso.get().load(imageUrl).into(holder.actorImage)
+        }
 
-        holder.actorName.text = currentActor.actorName
+        holder.actorName.text = currentActor?.actorName
 
         if(::mItemClickListener.isInitialized){
             holder.itemView.setOnClickListener {

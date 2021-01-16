@@ -7,8 +7,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.marwaeltayeb.popularpeople.R
 import com.marwaeltayeb.popularpeople.model.Image
-import com.marwaeltayeb.popularpeople.utils.Const
-import com.marwaeltayeb.popularpeople.utils.ImageUtils
 import com.marwaeltayeb.popularpeople.utils.ImageUtils.createImageLink
 import com.squareup.picasso.Picasso
 
