@@ -18,7 +18,7 @@ import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_ACTOR
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.CURRENT_IMAGE
 import com.marwaeltayeb.popularpeople.utils.Const.Companion.IMAGE_LINK
 import com.marwaeltayeb.popularpeople.utils.Gender
-import com.marwaeltayeb.popularpeople.viewmodel.ImageViewModel
+import com.marwaeltayeb.popularpeople.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import maes.tech.intentanim.CustomIntent
@@ -39,7 +39,7 @@ class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListe
 
     private lateinit var recyclerView: RecyclerView
     @Inject lateinit var imageAdapter: ImageAdapter
-    private lateinit var imageViewModel: ImageViewModel
+    private lateinit var detailsViewModel: DetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,27 +49,14 @@ class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListe
 
         val currentActor = intent.getSerializableExtra(CURRENT_ACTOR) as? Actor
         if (currentActor != null) {
-
-            actorId = currentActor.actorId
-
-            val imageUrl = IMAGE_LINK + currentActor.actorImage
-
-            Picasso.get().load(imageUrl).into(actorImage)
-
-            actorName.text = currentActor.actorName
-
-            actorPopularity.text = currentActor.popularity
-            actorDepartment.text = currentActor.department
-
-            val gender = currentActor.gender.name
-            actorGender.text = getGender(gender)
-
-            actorKnownFor.text = currentActor.actorsList.get(0).movieTitle
+            getActorInfo(currentActor)
         }
 
-        imageViewModel = ViewModelProvider(this, providerFactory).get(ImageViewModel::class.java)
+        detailsViewModel = ViewModelProvider(this, providerFactory).get(DetailsViewModel::class.java)
 
-        loadListOfImages()
+        setUpObserver()
+
+        detailsViewModel.requestImageList(actorId.toString())
     }
 
     private fun initViews(){
@@ -91,9 +78,27 @@ class DetailsActivity : DaggerAppCompatActivity(), ImageAdapter.OnItemClickListe
         imageAdapter.setOnItemClickListener(this)
     }
 
-    private fun loadListOfImages() {
-        imageViewModel.getAllImages(actorId.toString()).observe(this, {
-            imageAdapter.setImages(it)
+    private fun getActorInfo(currentActor: Actor){
+        actorId = currentActor.actorId
+
+        val imageUrl = IMAGE_LINK + currentActor.actorImage
+
+        Picasso.get().load(imageUrl).into(actorImage)
+
+        actorName.text = currentActor.actorName
+
+        actorPopularity.text = currentActor.popularity
+        actorDepartment.text = currentActor.department
+
+        val gender = currentActor.gender.name
+        actorGender.text = getGender(gender)
+
+        actorKnownFor.text = currentActor.actorsList.get(0).movieTitle
+    }
+
+    private fun setUpObserver() {
+        detailsViewModel.getAllImages().observe(this, { imageList ->
+            imageAdapter.setImages(imageList)
         })
 
         recyclerView.adapter = imageAdapter

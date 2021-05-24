@@ -3,7 +3,7 @@ package com.marwaeltayeb.popularpeople.di.main
 import androidx.lifecycle.ViewModel
 import com.marwaeltayeb.popularpeople.di.ViewModelKey
 import com.marwaeltayeb.popularpeople.viewmodel.ActorViewModel
-import com.marwaeltayeb.popularpeople.viewmodel.ImageViewModel
+import com.marwaeltayeb.popularpeople.viewmodel.DetailsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,6 +19,6 @@ abstract class MainViewModelsModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ImageViewModel::class)
-    abstract fun bindImageViewModel(viewModel: ImageViewModel): ViewModel
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindImageViewModel(viewModel: DetailsViewModel): ViewModel
 }
